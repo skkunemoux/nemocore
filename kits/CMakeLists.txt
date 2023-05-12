@@ -1,0 +1,67 @@
+FIND_PACKAGE(PkgConfig REQUIRED)
+
+PKG_CHECK_MODULES(EXPAT REQUIRED expat)
+INCLUDE_DIRECTORIES(${EXPAT_INCLUDE_DIRS})
+LINK_DIRECTORIES(${EXPAT_LIBRARY_DIRS})
+
+PKG_CHECK_MODULES(JSON REQUIRED json-c)
+INCLUDE_DIRECTORIES(${JSON_INCLUDE_DIRS})
+LINK_DIRECTORIES(${JSON_LIBRARY_DIRS})
+
+PKG_CHECK_MODULES(LIBMONGOC REQUIRED libmongoc-1.0)
+INCLUDE_DIRECTORIES(${LIBMONGOC_INCLUDE_DIRS})
+LINK_DIRECTORIES(${LIBMONGOC_LIBRARY_DIRS})
+
+PKG_CHECK_MODULES(LIBBSON REQUIRED libbson-1.0)
+INCLUDE_DIRECTORIES(${LIBBSON_INCLUDE_DIRS})
+LINK_DIRECTORIES(${LIBBSON_LIBRARY_DIRS})
+
+include_directories(
+	${CMAKE_SOURCE_DIR}/asst
+	)
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_C_FLAGS}")
+set(CMAKE_LINK_FLAGS "${CMAKE_LINK_FLAGS}")
+
+add_library(nemokits SHARED
+	nemoxml.c
+	nemojson.c
+	nemobus.c
+	nemodb.c
+	nemochannel.c
+	nemoqueue.c
+	nemothread.c
+	)
+
+TARGET_LINK_LIBRARIES(nemokits
+	pthread
+	nemoasst
+	${EXPAT_LIBRAIRES}
+	${JSON_LIBRARIES}
+	${LIBMONGOC_LIBRARIES}
+	${LIBBSON_LIBRARIES}
+	)
+
+INSTALL(TARGETS nemokits DESTINATION lib${CMAKE_LIBRARY_SUFFIX})
+
+set(HEADER_FILES
+	nemoxml.h
+	nemojson.h
+	nemobus.h
+	nemodb.h
+	nemochannel.h
+	nemoqueue.h
+	nemothread.h
+	)
+
+set(NEMODB_PKGCONFIG_REQUIRES "nemoasst expat json-c libmongoc-1.0 libbson-1.0")
+
+configure_file(
+	nemokits.pc.in
+	nemokits.pc
+	@ONLY
+	)
+
+INSTALL(FILES ${HEADER_FILES} DESTINATION include/nemokits)
+INSTALL(FILES ${CMAKE_BINARY_DIR}/kits/nemokits.pc DESTINATION lib${CMAKE_LIBRARY_SUFFIX}/pkgconfig)

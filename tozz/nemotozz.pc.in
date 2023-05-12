@@ -1,0 +1,11 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+bindir=${prefix}/bin
+libdir=${prefix}/lib@CMAKE_LIBRARY_SUFFIX@
+incdir=${prefix}/include
+
+Name: Nemotozz
+Description: NEMO-UX vector graphics library
+Version: 0.1.0
+Requires: @NEMOTOZZ_PKGCONFIG_REQUIRES@
+Libs: -L${libdir} -lnemotozz
+Cflags: -I${incdir}/nemotozz

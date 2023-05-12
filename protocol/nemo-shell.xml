@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<protocol name="nemo_shell">
+	<interface name="nemo_shell" version="1">
+		<enum name="version">
+			<entry name="current" value="1"/>
+		</enum>
+
+		<request name="use_unstable_version">
+			<arg name="version" type="int"/>
+		</request>
+
+		<request name="get_nemo_surface">
+			<arg name="id" type="new_id" interface="nemo_surface"/>
+			<arg name="surface" type="object" interface="wl_surface"/>
+			<arg name="type" type="string"/>
+		</request>
+
+		<request name="pong">
+			<arg name="serial" type="uint"/>
+		</request>
+
+		<event name="ping">
+			<arg name="serial" type="uint"/>
+		</event>
+	</interface>
+
+	<interface name="nemo_surface" version="1">
+		<enum name="error">
+			<entry name="invalid_layer" value="0"/>
+		</enum>
+
+		<request name="destroy" type="destructor">
+		</request>
+
+		<request name="set_tag">
+			<arg name="tag" type="uint"/>
+		</request>
+
+		<request name="set_type">
+			<arg name="type" type="string"/>
+		</request>
+
+		<request name="set_uuid">
+			<arg name="uuid" type="string"/>
+		</request>
+
+		<request name="set_state">
+			<arg name="state" type="string"/>
+		</request>
+
+		<request name="put_state">
+			<arg name="state" type="string"/>
+		</request>
+
+		<request name="set_size">
+			<arg name="width" type="uint"/>
+			<arg name="height" type="uint"/>
+		</request>
+
+		<request name="set_min_size">
+			<arg name="width" type="uint"/>
+			<arg name="height" type="uint"/>
+		</request>
+
+		<request name="set_max_size">
+			<arg name="width" type="uint"/>
+			<arg name="height" type="uint"/>
+		</request>
+
+		<request name="set_position">
+			<arg name="x" type="fixed"/>
+			<arg name="y" type="fixed"/>
+		</request>
+
+		<request name="set_rotation">
+			<arg name="r" type="fixed"/>
+		</request>
+
+		<request name="set_scale">
+			<arg name="sx" type="fixed"/>
+			<arg name="sy" type="fixed"/>
+		</request>
+
+		<request name="set_pivot">
+			<arg name="px" type="int"/>
+			<arg name="py" type="int"/>
+		</request>
+
+		<request name="set_anchor">
+			<arg name="ax" type="fixed"/>
+			<arg name="ay" type="fixed"/>
+		</request>
+
+		<request name="set_flag">
+			<arg name="fx" type="fixed"/>
+			<arg name="fy" type="fixed"/>
+		</request>
+
+		<request name="set_layer">
+			<arg name="type" type="string"/>
+		</request>
+
+		<request name="set_parent">
+			<arg name="parent" type="object" interface="nemo_surface"/>
+		</request>
+
+		<request name="set_region">
+			<arg name="x" type="uint"/>
+			<arg name="y" type="uint"/>
+			<arg name="width" type="uint"/>
+			<arg name="height" type="uint"/>
+		</request>
+
+		<request name="put_region">
+		</request>
+
+		<request name="set_scope">
+			<arg name="cmds" type="string"/>
+		</request>
+
+		<request name="put_scope">
+		</request>
+
+		<request name="set_fullscreen_type">
+			<arg name="type" type="string"/>
+		</request>
+
+		<request name="put_fullscreen_type">
+			<arg name="type" type="string"/>
+		</request>
+
+		<request name="set_fullscreen_target">
+			<arg name="id" type="string"/>
+		</request>
+
+		<request name="put_fullscreen_target">
+		</request>
+
+		<request name="set_fullscreen">
+			<arg name="id" type="string"/>
+		</request>
+
+		<request name="put_fullscreen">
+		</request>
+
+		<request name="move">
+			<arg name="seat" type="object" interface="nemo_seat"/>
+			<arg name="serial" type="uint"/>
+		</request>
+
+		<request name="pick">
+			<arg name="seat" type="object" interface="nemo_seat"/>
+			<arg name="serial0" type="uint"/>
+			<arg name="serial1" type="uint"/>
+			<arg name="type" type="string"/>
+		</request>
+
+		<request name="miss">
+		</request>
+
+		<request name="focus_to">
+			<arg name="uuid" type="string"/>
+		</request>
+
+		<request name="focus_on">
+			<arg name="x" type="fixed"/>
+			<arg name="y" type="fixed"/>
+		</request>
+
+		<request name="update">
+			<arg name="serial" type="uint"/>
+		</request>
+
+		<event name="configure">
+			<arg name="width" type="int"/>
+			<arg name="height" type="int"/>
+			<arg name="serial" type="uint"/>
+		</event>
+
+		<event name="transform">
+			<arg name="visible" type="int"/>
+			<arg name="x" type="int"/>
+			<arg name="y" type="int"/>
+			<arg name="width" type="int"/>
+			<arg name="height" type="int"/>
+		</event>
+
+		<event name="layer">
+			<arg name="visible" type="int"/>
+		</event>
+
+		<event name="fullscreen">
+			<arg name="id" type="string" allow-null="true"/>
+			<arg name="x" type="int"/>
+			<arg name="y" type="int"/>
+			<arg name="width" type="int"/>
+			<arg name="height" type="int"/>
+		</event>
+
+		<event name="close">
+		</event>
+	</interface>
+</protocol>
