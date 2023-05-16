@@ -56,3 +56,6 @@ $sudo systemctl start minishell.service
 # TODO
 
 nothing yet.
+
+## Sources Used
+You can view sources used here: [licenses.xlsx](licenses.xlsx) (Generated via FOSSLight Source Scanner)
